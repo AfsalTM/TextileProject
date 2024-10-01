@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+{% extends 'index.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div style="margin-top: 250px;">
+
+    <form method="POST" action="{% url 'save'  %}" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input  name="name" placeholder="category"><br><br>
+    <label>Description</label><br><br>
+        <textarea name="description"></textarea><br><br>
+    <input name="image" type="file" placeholder="profile"><br><br>
+
+    <button type="submit">submit</button>
+
+</form>
+</div>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+{% if messages %}
+    {% for i in messages %}
+        {% if i.tags == 'warning' %}
+            <script>
+                swal('{{i}}','','warning');
+            </script>
+        {% elif i.tags == 'error' %}
+            <script>
+                swal('{{i}}','','error');
+            </script>
+        {% elif i.tags == 'info' %}
+            <script>
+                swal('{{i}}','','info');
+            </script>
+        {% else %}
+            <script>
+                swal('{{i}}','','success');
+            </script>
+        {% endif %}
+    {% endfor %}
+{% endif %}
+
+
+</body>
+</html>
+{% endblock %}
